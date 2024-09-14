@@ -1,6 +1,6 @@
 import { Modal, Form, FormGroup, Label, Input, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap';
 import propTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const modeloProducto = {
     id: 0,
@@ -9,7 +9,7 @@ const modeloProducto = {
     price: "",
     quantityInStock: ""
 }
-function ModalComponent({ mostrarModal, setMostrarModal, guardarProducto }) {
+function ModalComponent({ mostrarModal, setMostrarModal, guardarProducto, editar, setEditar, editarProducto }) {
 
     const [producto, setProducto] = useState(modeloProducto)
 
@@ -25,18 +25,29 @@ function ModalComponent({ mostrarModal, setMostrarModal, guardarProducto }) {
     const enviarDatos = () => {
         if (producto.id == 0) {
             guardarProducto(producto);
+        } else {
+            editarProducto(producto)
         }
         setProducto(modeloProducto)
     }
 
+    useEffect(() => {
+        if (editar!=null) {
+            setProducto(editar)
+        } else {
+            setProducto(modeloProducto)
+        }
+    }, [editar])
+
     const cerrarModal = () => {
         setMostrarModal(!mostrarModal)
+        setEditar(null);
     }
 
   return (
       <Modal isOpen={mostrarModal}>
           <ModalHeader>
-            
+              {producto.id == 0 ? "Nuevo Producto" : "Editar Producto" }
           </ModalHeader>
           <ModalBody>
               <Form>
@@ -69,7 +80,10 @@ function ModalComponent({ mostrarModal, setMostrarModal, guardarProducto }) {
 ModalComponent.propTypes = {
     mostrarModal: propTypes.func.isRequired,
     setMostrarModal: propTypes.func.isRequired,
-    guardarProducto: propTypes.func
+    guardarProducto: propTypes.func.isRequired,
+    editar: propTypes.func.isRequired,
+    setEditar: propTypes.func.isRequired,
+    editarProducto: propTypes.func.isRequired
 
 }
 
