@@ -30,5 +30,29 @@ namespace PetShopApp.Server.Controllers
 
             return StatusCode(StatusCodes.Status200OK, "Ok");
         }
+
+        [HttpPut]
+        [Route("Update")]
+
+        public async Task<IActionResult> Update([FromBody] Product product)
+        {
+            _dbContext.Products.Update(product);
+            await _dbContext.SaveChangesAsync();
+
+            return StatusCode(StatusCodes.Status200OK, "Ok");
+        }
+
+        [HttpDelete]
+        [Route("Delete/{id}")]
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            Product product = _dbContext.Products.Find(id);
+
+            _dbContext.Products.Remove(product);
+            await _dbContext.SaveChangesAsync();
+
+            return StatusCode(StatusCodes.Status200OK, "Ok");
+        }
     }
 }
