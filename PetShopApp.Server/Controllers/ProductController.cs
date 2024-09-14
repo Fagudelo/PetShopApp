@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PetShopApp.Server.Models;
+using System.Numerics;
 
 namespace PetShopApp.Server.Controllers
 {
@@ -45,7 +46,7 @@ namespace PetShopApp.Server.Controllers
         [HttpDelete]
         [Route("Delete/{id}")]
 
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(long id)
         {
             Product product = _dbContext.Products.Find(id);
 
