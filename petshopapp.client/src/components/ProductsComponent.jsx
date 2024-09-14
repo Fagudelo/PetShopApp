@@ -1,6 +1,9 @@
 import { Table, Button } from 'reactstrap';
 import PropTypes from 'prop-types';
-function ProductsComponent({data}) {
+function ProductsComponent({ data }) {
+
+    
+
   return (
       <Table striped responsive>
           <thead>
@@ -38,7 +41,9 @@ function ProductsComponent({data}) {
 }
 
 ProductsComponent.propTypes = {
-    data: PropTypes.array.isRequired
+    data: PropTypes.func.isRequired,
+    mostrarModal: PropTypes.func.isRequired,
+    setMostrarModal: PropTypes.func.isRequired
 };
 
 export default ProductsComponent;
